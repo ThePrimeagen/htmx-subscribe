@@ -19,4 +19,6 @@
     background-color: #777;
 }
 
-
+html {
+    color-scheme: light dark;
+}
