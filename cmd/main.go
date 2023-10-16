@@ -39,6 +39,6 @@ func main() {
     e.GET("/", pages.Index)
     e.POST("/subscribe", pages.Subscribed)
 
-    e.Logger.Fatal(e.Start(":42069"))
+    e.Logger.Fatal(e.Start(":42068"))
 }
 

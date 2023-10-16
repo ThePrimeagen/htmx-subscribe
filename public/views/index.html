@@ -8,13 +8,14 @@
         <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
         <script src="/dist/bundle.js"></script>
     </head>
-    <body>
-        <div> other content </div>
-        <subscribe-button id="foo" hx-boost="true">
-            <form action="/subscribe" method="post">
-                <input class="email-sub" type="email" name="email" placeholder="Enter a valid email!"/>
-                <button class="submit" type="submit">Subscribe</button>
-            </form>
-        </subscribe-button>
+    <body hx-boost="true">
+        <form action="/subscribe" method="post">
+            <input class="email-sub" type="email" value="{{ .Email }}" name="email" placeholder="Enter a valid email!"/>
+            <button class="submit" type="submit">Subscribe</button>
+            <div class="error">{{ .ErrorMsg }}</div>
+        </form>
+        <script>
+            window.subscribe.initSubscribe(document.querySelector('form'));
+        </script>
     </body>
 </html>

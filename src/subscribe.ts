@@ -1,43 +1,23 @@
 
-export class Subscribe extends HTMLElement {
+export function initSubscribe(form: HTMLFormElement) {
 
-    connectedCallback() {
-        this.collectState();
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length > 0) {
-                    this.collectState();
-                }
-            })
-        })
+    const button = form.querySelector("button[type=submit]") as HTMLButtonElement;
+    const input = form.querySelector("input[type=email]") as HTMLButtonElement;
 
-        observer.observe(this, { childList: true })
+    if (!button) {
+        throw new Error("form without button");
     }
 
-    private collectState() {
-        const form = this.querySelector("form") as HTMLFormElement;
-        if (!form) {
-            return;
-        }
+    button.toggleAttribute("disabled", false);
+    input.focus();
 
-        const button = form.querySelector("button[type=submit]") as HTMLButtonElement;
-        const input = form.querySelector("input[type=email]") as HTMLButtonElement;
+    form.addEventListener("htmx:beforeRequest", function() {
+        button.toggleAttribute("disabled", true);
+    })
 
-        if (!button) {
-            throw new Error("form without button");
-        }
-
-        button.toggleAttribute("disabled", false);
-        input.focus();
-
-        form.addEventListener("htmx:beforeRequest", function() {
-            button.toggleAttribute("disabled", true);
-        })
-
-        form.addEventListener("htmx:beforeSwap", function() {
-            console.log("BEFORE SWAP");
-            button.toggleAttribute("false", true);
-        })
-    }
+    form.addEventListener("htmx:beforeSwap", function() {
+        console.log("BEFORE SWAP");
+        button.toggleAttribute("false", true);
+    })
 }
 

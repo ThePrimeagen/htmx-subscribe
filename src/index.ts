@@ -1,4 +1,5 @@
-import { Subscribe } from "./subscribe";
+import * as subscribe from "./subscribe";
 
-customElements.define("subscribe-button", Subscribe);
-
+// @ts-ignore
+// is there a better way of doing this?
+window.subscribe = subscribe;
