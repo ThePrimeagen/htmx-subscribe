@@ -16,8 +16,7 @@ export function initSubscribe(form: HTMLFormElement) {
     })
 
     form.addEventListener("htmx:beforeSwap", function() {
-        console.log("BEFORE SWAP");
-        button.toggleAttribute("false", true);
+        button.toggleAttribute("disabled", true);
     })
 }
 

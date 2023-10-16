@@ -4,13 +4,13 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-        <script src="https://unpkg.com/htmx.org@1.9.4" integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV" crossorigin="anonymous"></script>
+        <link href="/dist/main.css" rel="stylesheet">
+        <script src="/htmx/htmx.js"></script>
         <script src="/dist/bundle.js"></script>
     </head>
     <body hx-boost="true">
         <form action="/subscribe" method="post">
-            <input class="email-sub" type="email" value="{{ .Email }}" name="email" placeholder="Enter a valid email!"/>
+            <input class="flex email-sub" type="email" value="{{ .Email }}" name="email" placeholder="Enter a valid email!"/>
             <button class="submit" type="submit">Subscribe</button>
             <div class="error">{{ .ErrorMsg }}</div>
         </form>

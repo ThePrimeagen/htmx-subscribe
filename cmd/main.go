@@ -35,6 +35,7 @@ func main() {
     e.Use(middleware.Logger())
     e.Static("/dist", "dist");
     e.Static("/css", "css");
+    e.Static("/htmx", "htmx");
 
     e.GET("/", pages.Index)
     e.POST("/subscribe", pages.Subscribed)

@@ -32,7 +32,7 @@ func Subscribed(c echo.Context) error {
     c.Logger().Error("Subscribe Called")
     if err := c.Bind(&subscribePage); err != nil {
         c.Logger().Error("No email address provided")
-        c.Render(200, "index.html", Page{
+        return c.Render(200, "index.html", Page{
             Email: "",
             ErrorMsg: "Please provide an email",
         })
@@ -42,13 +42,13 @@ func Subscribed(c echo.Context) error {
 
     if !valid(subscribePage.Email) {
         c.Logger().Error("invalid email")
-        c.Render(200, "index.html", Page{
+        return c.Render(200, "index.html", Page{
             Email: subscribePage.Email,
             ErrorMsg: "Invalid Email",
         })
     }
 
-    time.Sleep(1 * time.Second)
+    time.Sleep(2 * time.Second)
     return c.Render(200, "subscribed.html", Page{
         Email: subscribePage.Email,
         ErrorMsg: "",
