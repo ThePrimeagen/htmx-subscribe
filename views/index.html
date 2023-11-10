@@ -1,0 +1,82 @@
+{{ block "scripts" . }}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+    <script src="src/dom-helpers.js"></script>
+{{ end }}
+
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{ template "scripts" . }}
+    </head>
+    <body>
+        {{ template "subscribe-body" . }}
+    </body>
+</html>
+{{ end }}
+
+{{ block "thanks" . }}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{ template "scripts" . }}
+    </head>
+    <body>
+        {{ template "thanks-body" . }}
+    </body>
+</html>
+{{ end }}
+
+{{ block "subscribe-body" . }}
+<section class="w-full min-h-screen bg-blue-300 flex items-center justify-center">
+    <div class="p-10 bg-white rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-2 text-center">Subscribe</h2>
+        <p class="text-gray-600 text-center mb-8">Don't Miss The Latest Updates</p>
+        <form id="subscribe-form" hx-post="/subscribe" hx-target="body" class="flex flex-col space-y-4">
+            <input
+            id="email-input"
+            autofocus
+            class="flex h-10 w-full bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border border-gray-300 rounded-lg p-2"
+            type="email"
+            name="email"
+            value="{{ .Email }}"
+            placeholder="Enter your email"
+            />
+            {{ if .ErrorMsgs }}
+                <p class="text-red-500 text-sm">{{ .ErrorMsgs.email }}</p>
+            {{ end }}
+            <button
+                class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 bg-blue-500 text-white py-2 rounded-lg"
+                type="submit"
+                >
+                Subscribe
+            </button>
+        </form>
+    </div>
+</section>
+<script>
+    document.getElementById("email-input").select();
+    disableSubmit(document.getElementById("subscribe-form"));
+</script>
+{{ end }}
+
+{{ block "thanks-body" . }}
+<section class="w-full min-h-screen bg-blue-300 flex items-center justify-center">
+    <div class="p-10 bg-white rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-2 text-center">Thank you!</h2>
+        <p class="text-gray-600 text-center mb-8">
+        Thanks, {{ .Email }}, for subscribing to ThePrimeagen and HTMX updates
+        </p>
+        <div class="flex justify-center">
+            <a hx-boost="true" class="text-blue-500 hover:underline" href="/?email={{ .Email }}">Subscribe With Different Email</a>
+        </div>
+    </div>
+</section>
+{{ end }}
